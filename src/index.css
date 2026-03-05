@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+   Design System: CSS custom properties (HSL only)
+   ==========================================================================*/
+@layer base {
+  :root {
+    --background: 0 0% 100%;          /* White */
+    --foreground: 0 0% 10%;           /* Dark text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 46 95% 68%;            /* Gold (#fad564) */
+    --primary-foreground: 0 0% 10%;   /* Dark text on gold */
+
+    --secondary: 0 0% 24%;            /* Dark gray (#3e3e3e) */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 46 95% 68%;             /* Same gold */
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 85%;
+    --input: 0 0% 90%;
+    --ring: 46 95% 68%;               /* Gold ring */
+
+    /* Brand Colors */
+    --brand-blue-primary: 46 95% 68%;   /* Gold (#fad564) */
+    --brand-blue-secondary: 0 0% 24%;   /* Dark gray */
+    --brand-blue-dark: 0 0% 10%;        /* Almost black */
+
+    /* Gradients */
+    --gradient-brand: linear-gradient(
+      135deg,
+      hsl(var(--brand-blue-primary)),
+      hsl(var(--brand-blue-secondary))
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(var(--brand-blue-dark) / 0.9),
+      hsl(var(--brand-blue-primary) / 0.8)
+    );
+
+    /* Shadows */
+    --shadow-card: 0 2px 10px hsl(var(--primary) / 0.10);
+    --shadow-header: 0 2px 20px hsl(var(--primary) / 0.15);
+    --shadow-button: 0 4px 15px hsl(var(--primary) / 0.30);
+
+    --radius: 0.5rem;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 24%;
+    --sidebar-primary: 46 95% 68%;          /* Gold sidebar highlight */
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 0 0% 24%;
+    --sidebar-border: 0 0% 85%;
+    --sidebar-ring: 46 95% 68%;
+  }
+
+  .dark {
+    --background: 0 0% 12%;          /* Dark gray */
+    --foreground: 0 0% 100%;         /* White text */
+
+    --card: 0 0% 16%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 16%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 46 95% 68%;           /* Gold (#fad564) */
+    --primary-foreground: 0 0% 10%;  /* Dark text on gold */
+
+    --secondary: 0 0% 20%;           /* Dark gray */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 46 95% 68%;            /* Gold (#fad564) */
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 46 95% 68%;
+
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 46 95% 68%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 0 0% 20%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 46 95% 68%;
+  }
+}
+
+/* Base element defaults */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Slightly reduce root font-size on very small phones */
+  @media (max-width: 360px) {
+    html { font-size: 15px; }
+  }
+  @media (max-width: 320px) {
+    html { font-size: 14px; }
+  }
+}
+
+/* ============================================================================
+   Utilities: spacing, typography, gradients, shadows, brand helpers
+   ==========================================================================*/
+@layer utilities {
+  /* Spacing helpers for consistent sections/containers */
+  .container-px { @apply px-4 sm:px-6 md:px-8; }
+  .section-py  { @apply py-12 md:py-20; }
+
+  /* Responsive type scales using clamp() */
+  .h1 {
+    @apply font-bold tracking-tight text-brand-blue-dark;
+    font-size: clamp(1.75rem, 2.4vw + 1rem, 3.5rem); /* ~28px → 56px */
+    line-height: 1.1;
+  }
+  .h2 {
+    @apply font-bold text-brand-blue-dark;
+    font-size: clamp(1.5rem, 1.6vw + 1rem, 2.5rem);  /* ~24px → 40px */
+    line-height: 1.15;
+  }
+  .lead {
+    @apply text-muted-foreground;
+    font-size: clamp(1rem, 0.7vw + .9rem, 1.25rem);   /* ~16px → 20px */
+    line-height: 1.6;
+  }
+
+  /* Gradients as utilities */
+  .bg-gradient-brand { background-image: var(--gradient-brand); }
+  .bg-gradient-hero  { background-image: var(--gradient-hero); }
+
+  /* Shadow helpers */
+  .shadow-card   { box-shadow: var(--shadow-card); }
+  .shadow-header { box-shadow: var(--shadow-header); }
+  .shadow-button { box-shadow: var(--shadow-button); }
+
+  /* Brand color helpers (useful if not mapped in tailwind.config) */
+  .text-brand-blue-dark      { color: hsl(var(--brand-blue-dark)); }
+  .text-brand-blue-primary   { color: hsl(var(--brand-blue-primary)); }
+  .text-brand-blue-secondary { color: hsl(var(--brand-blue-secondary)); }
+
+  .bg-brand-blue-dark        { background-color: hsl(var(--brand-blue-dark)); }
+  .bg-brand-blue-primary     { background-color: hsl(var(--brand-blue-primary)); }
+  .bg-brand-blue-secondary   { background-color: hsl(var(--brand-blue-secondary)); }
+}
